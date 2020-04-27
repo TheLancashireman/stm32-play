@@ -15,6 +15,8 @@ a simple bare-metal project.
 
 There's also some information about the compiler and debugging using gdb, openocd and an ST-LINK dongle clone.
 
+Read the file called notes for details.
+
 
 ## License, disclaimer etc.
 

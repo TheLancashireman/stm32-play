@@ -32,12 +32,16 @@ Hints here:
 
 https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Programming-an-STM32F103XXX-with-a-generic-%22ST-Link-V2%22-programmer-from-Linux
 
-Software: OpenOCD (github)
+Software: OpenOCD (latest from github)
           stlink-gui (apt install)
           stlink-tools (apt-install)
+          linaro gcc (arm-eabi "bare metal" build) from linaro.org - compiler/assembler/linker/debugger
 
- > openocd startup (see script ocd.sh)
+stlink software is not very useful.
 
+openocd startup (see script ocd.sh) in an xterm
+
+In another xterm:
  > telnet localhost 4444
 Press and hold reset button on target
  > reset halt
@@ -49,7 +53,11 @@ Release reset button
 
 Now have full control over the MCU
 
-flash write_image erase play.bin 0x08000000
+> flash write_image erase play.bin 0x08000000
+> reset halt
+(yet again)
+
+Now you can start gdb in a third xterm (see the gdb and tgtconn scripts)
 
 STM32 memory layout:
 ====================
@@ -62,4 +70,4 @@ Address 0 aliased to Flash or System (or maybe RAM) depending on boot jumpers.
 
 Need to have Cortex M vector table at 0x08000000 so that aliasing it to 0x00000000
 causes system to start correctly when boot pins are set to boot from flash.
-
+Both boot jumpers at '0'Âdo this.
