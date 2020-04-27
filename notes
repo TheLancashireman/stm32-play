@@ -16,6 +16,7 @@ Pinout of ST-Link V2 (clone) dongle:
 WARNING: This is for the dongle in the transparent blue/turquoise case. There are other dongles
 with metal sleeves that have a different pinout (and don't appear to have JTAG functionality).
 
+
 Blue Pill connections (4 pins at opposite end to USB connector):
 
                   ____
@@ -24,6 +25,9 @@ Blue Pill connections (4 pins at opposite end to USB connector):
                     o-|--- SWDIO
                     o-|--- 3v3
                   ----
+
+Connect the pins with the same name together (4 of them). The others on the dongle are unused.
+
 Hints here:
 
 https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Programming-an-STM32F103XXX-with-a-generic-%22ST-Link-V2%22-programmer-from-Linux
