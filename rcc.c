@@ -25,7 +25,7 @@ void dv_init_rcc(void)
 
 	/* 2 wait states on flash; enable prefetch
 	*/
-	dv_flash.ac = DV_FLASH_PREFETCH | 0x2;		/* 2 wait states, prefetch */
+	dv_flash.ac = DV_FLASH_PREFETCH | 0x1;		/* 1 wait states, prefetch */
 
 	/* Switch to PLL
 	*/
