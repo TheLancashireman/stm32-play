@@ -1,5 +1,11 @@
 # TheLancashireman's STM32 playground.
 
+## WORK IN PROGRESS
+
+Not everything that's mentioned below has been implemented. :-)
+
+## What's this?
+
 This repository contains some code that I hacked together to learn about the STM32F103C8xx processor
 and the "Blue Pill" development board.
 
