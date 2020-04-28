@@ -31,6 +31,7 @@ struct dv_cortexm3acr_s
 	dv_reg32_t unknown;		/* What's this */
 	dv_reg32_t ictr;		/* Interrupt controller type */
 	dv_reg32_t actlr;		/* Aux control register */
+	dv_reg32_t gap;
 	dv_reg32_t stcsr;		/* SysTick control/status */
 	dv_reg32_t strvr;		/* SysTick reload */
 	dv_reg32_t stcvr;		/* SysTick current value */
@@ -87,5 +88,16 @@ struct dv_cortexm3scr_s
 
 #define DV_CORTEXM3_STIR		0xe000ef00
 #define DV_m3stir				((dv_reg32_t *)DV_CORTEXM3_STIR)[0]
+
+#define DV_SYST_COUNTFLAG		0x00010000		/* 1 ==> counter has counted to zero (read-only, clear by reading) */
+#define DV_SYST_CLKSRC			0x00000004		/* 1 = CPU, 0 = ext. ref */
+#define DV_SYST_TICKINT			0x00000002		/* 1 = trigger exception when timer reaches 0 */
+#define DV_SYST_ENABLE			0x00000001		/* 1 = counter is enabled */
+
+#define DV_SYST_MASK			0x00ffffff		/* Max value mask */
+
+
+extern void dv_init_systick(void);
+extern dv_u32_t dv_read_systick(void);
 
 #endif

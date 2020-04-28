@@ -18,6 +18,7 @@
  *  along with the STM32 playground.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "stm32.h"
+#include "cortex-m3.h"
 
 /* Let's have something in .data and .bss to check that the linker script is working
 */
@@ -46,6 +47,7 @@ void dv_reset(void)
 	dv_init_data();
 
 /*	Copy the initialised array to the uninitialised array (twice)
+ * 	This is a test (kind of) that the .data/.bss initialisation has worked.
 */
 	for ( int i = 0; i < 8; i++ )
 	{

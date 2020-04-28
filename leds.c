@@ -20,6 +20,9 @@
 #include "stm32.h"
 #include "stm32-gpio.h"
 #include "stm32-rcc.h"
+#include "cortex-m3.h"
+
+#define USE_SYSTICK		1
 
 extern volatile int delay_factor;
 
@@ -43,6 +46,10 @@ void init_led(void)
 	dv_u32_t mask = 0xf << shift;
 	dv_u32_t val = DV_GPIO_OUT_OD_50 << shift;
 	dv_gpio_c.cr[cr] = (dv_gpio_c.cr[cr] & mask) | val;
+
+#if USE_SYSTICK
+	dv_init_systick();
+#endif
 }
 
 void led_off(void)
@@ -57,9 +64,28 @@ void led_on(void)
 
 void delay(int ms)
 {
+#if USE_SYSTICK
+	/* Ext. clock is 72 MHz / 8 = 9 MHz ==> 9000000 ticks per second ==> 9000 ticks per millisecond */
+	dv_u32_t count = ms * 9000;
+	dv_u32_t old = dv_read_systick();
+	dv_u32_t diff = 0;
+	dv_u32_t new = 0;
+
+	while ( count > diff )
+	{
+		count -= diff;
+		new = dv_read_systick();
+		diff = (old - new) & DV_SYST_MASK;	/* Down counter! */
+		old = new;
+	}
+
+#else	/* Timing loop version calibrated (approximately) for 8 MHz CPU clock */
+
 	volatile int count = ms * delay_factor;
 
 	do {
 		count--;
 	} while ( count > 0 );
+	
+#endif
 }
