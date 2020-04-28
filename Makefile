@@ -42,7 +42,8 @@ LD_OPT		+= -T $(DV_LDSCRIPT)
 VPATH		+= .
 
 # The demo code
-DV_LD_OBJS	+= $(DV_OBJ_D)/dv-cortexm-vectors.o
+#DV_LD_OBJS	+= $(DV_OBJ_D)/dv-cortexm-vectors.o
+DV_LD_OBJS	+= $(DV_OBJ_D)/vectors.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/play.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/rcc.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/leds.o

@@ -42,7 +42,7 @@ SECTIONS
 {
     .text	0x08000000	:
 	{
-		*(.vectors*)
+		obj/vectors.o(.rodata*)
 		*(.text*)
 	} > flash
 
