@@ -9,9 +9,12 @@ Not everything that's mentioned below has been implemented. :-)
 This repository contains some code that I hacked together to learn about the STM32F103C8xx processor
 and the "Blue Pill" development board.
 
-It's just the basics - GPIO (so I can blink an LED), the PLL (so I can run at the full 72 MHz),
-a timer (Cortex M's SysTick to start with) and a uart. All the basic stuff one might need for
-a simple bare-metal project.
+It's just the basic stuff one might need to get started on a simple bare-metal project:
+
+* GPIO to blink the LED
+* the PLL to run at the full 72 MHz
+* the timer - cortex M SysTick - to measure time reasonably accurately
+* the uart to communicate with the outside world
 
 There's also some information about the compiler and debugging using gdb, openocd and an ST-LINK dongle clone.
 
