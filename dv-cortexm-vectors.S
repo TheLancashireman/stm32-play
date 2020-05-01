@@ -17,6 +17,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with the STM32 playground.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/*
+ * The vector table for the stm32 playground is now written in C,
+ * just to show that it can be done.
+ * This file is provided just for reference.
+*/
+#error "You don't need to build this file - please read the comment above"
+
 #define DV_ASM  1
 
 	.globl	dv_vectors

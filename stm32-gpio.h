@@ -70,4 +70,46 @@ struct dv_gpio_s
 #define DV_GPIO_ALT_PP_50	(0x8 | 0x3)
 #define DV_GPIO_ALT_OD_50	(0xc | 0x3)
 
+/* ===== AFIO ===== */
+
+typedef struct dv_afio_s dv_afio_t;
+
+struct dv_afio_s
+{
+	dv_reg32_t	evcr;		/* Event control register */
+	dv_reg32_t	mapr;		/* Remap and debug I/O configuration register */
+};
+
+/* evcr
+ *
+ * The lower 4 bits are the pin number (0..15) of the selected port.
+*/
+#define DV_EV_ENABLE		0x80		/* Enables routing the Cortex EVENTOUT signal to a port */
+#define DV_EV_PORTA			0x00
+#define DV_EV_PORTB			0x10
+#define DV_EV_PORTC			0x20
+#define DV_EV_PORTD			0x30
+#define DV_EV_PORTE			0x40
+
+#define DV_MAP_SWJ				0x07000000	/* Write-only. Writing this value has NO EFFECT */
+#define DV_MAP_ADC2_ETRGREG		0x00100000
+#define DV_MAP_ADC2_ETRGINJ		0x00080000
+#define DV_MAP_ADC1_ETRGREG		0x00040000
+#define DV_MAP_ADC1_ETRGINJ		0x00020000
+#define DV_MAP_TIM5CH4			0x00010000
+#define DV_MAP_PD01				0x00008000
+#define DV_MAP_CAN				0x00006000
+#define DV_MAP_TIM4				0x00001000
+#define DV_MAP_TIM3				0x00000c00
+#define DV_MAP_TIM2				0x00000300
+#define DV_MAP_TIM1				0x000000c0
+#define DV_MAP_USART3			0x00000030	/* Mask; see below */
+#define DV_MAP_USART3_FULL		0x00000030	/* PD8-12 */
+#define DV_MAP_USART3_PART		0x00000010	/* PC10-12/PB13-14 */
+#define DV_MAP_USART3_NO		0x00000000	/* PB10-14 */
+#define DV_MAP_USART2			0x00000008	/* 0 -> PA0-4;		1 -> PD3-7 */
+#define DV_MAP_USART1			0x00000004	/* 0 -> PA9/10;		1 -> PB6/7 */
+#define DV_MAP_I2C1				0x00000002	/* 0 -> PB6/7;		1 -> PB8/9 */
+#define DV_MAP_SPI1				0x00000001	/* 0 -> PA4-7;		1 -> PA15/PB3-5 */
+
 #endif

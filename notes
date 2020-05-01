@@ -2,6 +2,9 @@
 Dave's STM32/Blue Pill notes
 ============================
 
+https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill
+
+
 Pinout of ST-Link V2 (clone) dongle:
 
              1 2
@@ -27,6 +30,17 @@ Blue Pill connections (4 pins at opposite end to USB connector):
                   ----
 
 Connect the pins with the same name together (4 of them). The others on the dongle are unused.
+
+FTDI FT232RL - little red board:
+
+                  ____
+                    o-|--- GND .... connect to G (any)
+                    o-|--- CTS
+                    o-|--- Vcc .... make sure to select the correct Vcc on the jumper.
+                    o-|--- Tx  .... connect to Rx (PA10)
+                    o-|--- Rx  .... connect to Tx (PA9)
+                    o-|--- DTR
+                  ----
 
 Hints here:
 
@@ -70,4 +84,6 @@ Address 0 aliased to Flash or System (or maybe RAM) depending on boot jumpers.
 
 Need to have Cortex M vector table at 0x08000000 so that aliasing it to 0x00000000
 causes system to start correctly when boot pins are set to boot from flash.
-Both boot jumpers at '0'Âdo this.
+Both boot jumpers at '0' do this.
+
+

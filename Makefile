@@ -48,6 +48,7 @@ DV_LD_OBJS	+= $(DV_OBJ_D)/play.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/rcc.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/leds.o
 DV_LD_OBJS	+= $(DV_OBJ_D)/systick.o
+DV_LD_OBJS	+= $(DV_OBJ_D)/stm32-uart.o
 
 .PHONY:		default all help clean install srec binary
 

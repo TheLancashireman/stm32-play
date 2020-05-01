@@ -19,6 +19,7 @@
 */
 #include "stm32.h"
 #include "cortex-m3.h"
+#include "stm32-uart.h"
 
 /* Let's have something in .data and .bss to check that the linker script is working
 */
@@ -59,12 +60,16 @@ void dv_reset(void)
 	else
 		fail();
 
+	if ( dv_uart1_init(115200, "8N1") != 0 )
+		fail();
+
 	init_led();
 	led_off();
 	delay_factor = 800;
 
 	for (;;)
 	{
+		dv_uart1_putc('*');
 		led_on();
 		delay(50);
 		led_off();

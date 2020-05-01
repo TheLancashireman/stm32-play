@@ -21,6 +21,7 @@
 #include "stm32-gpio.h"
 #include "stm32-rcc.h"
 #include "cortex-m3.h"
+#include "stm32-uart.h"
 
 #define USE_SYSTICK		1
 
@@ -77,6 +78,11 @@ void delay(int ms)
 		new = dv_read_systick();
 		diff = (old - new) & DV_SYST_MASK;	/* Down counter! */
 		old = new;
+
+		if ( dv_uart1_isrx() )
+		{
+			dv_uart1_putc(dv_uart1_getc());
+		}
 	}
 
 #else	/* Timing loop version calibrated (approximately) for 8 MHz CPU clock */
