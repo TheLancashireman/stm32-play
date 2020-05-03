@@ -1,9 +1,5 @@
 # TheLancashireman's STM32 playground.
 
-## WORK IN PROGRESS
-
-Not everything that's mentioned below has been implemented. :-)
-
 ## What's this?
 
 This repository contains some code that I hacked together to learn about the STM32F103C8xx processor
@@ -11,10 +7,11 @@ and the "Blue Pill" development board.
 
 It's just the basic stuff one might need to get started on a simple bare-metal project:
 
-* GPIO to blink the LED
+* GPIO to blink the onboard LED
 * the PLL to run at the full 72 MHz
 * the timer - cortex M SysTick - to measure time reasonably accurately
 * the uart to communicate with the outside world
+* interrupt handling using a software trigger
 
 There's also some information about the compiler and debugging using gdb, openocd and an ST-LINK dongle clone.
 
