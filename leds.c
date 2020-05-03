@@ -22,10 +22,13 @@
 #include "stm32-rcc.h"
 #include "cortex-m3.h"
 #include "stm32-uart.h"
+#include "nvic.h"
 
 #define USE_SYSTICK		1
 
 extern volatile int delay_factor;
+
+int char_count;
 
 void init_led(void);
 void led_on(void);
@@ -63,6 +66,28 @@ void led_on(void)
 	dv_gpio_c.brr = 0x1 << PIN;
 }
 
+void play_putc(int c)
+{
+	dv_uart1_putc(c);
+
+	if ( c == '\n' )
+	{
+		dv_uart1_putc('\r');
+		char_count = 0;
+	}
+	else
+	{
+		char_count++;
+		if ( char_count >= 64 )
+		{
+			dv_uart1_putc('\r');
+			dv_uart1_putc('\n');
+			char_count = 0;
+		}
+	}
+}
+	
+
 void delay(int ms)
 {
 #if USE_SYSTICK
@@ -81,7 +106,11 @@ void delay(int ms)
 
 		if ( dv_uart1_isrx() )
 		{
-			dv_uart1_putc(dv_uart1_getc());
+			int c = dv_uart1_getc();
+			play_putc(c);
+
+			if ( c == '!' )
+				dv_nvic_triggerirq(0);
 		}
 	}
 

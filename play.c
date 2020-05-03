@@ -20,6 +20,7 @@
 #include "stm32.h"
 #include "cortex-m3.h"
 #include "stm32-uart.h"
+#include "nvic.h"
 
 /* Let's have something in .data and .bss to check that the linker script is working
 */
@@ -39,6 +40,9 @@ void led_on(void);
 void led_off(void);
 void delay(int);
 void dv_init_rcc();
+void play_putc(int);
+void dv_irq_ext0(void);
+void putstr(char *);
 
 /* Entry point
 */
@@ -60,8 +64,13 @@ void dv_reset(void)
 	else
 		fail();
 
+	dv_nvic_init();
+
 	if ( dv_uart1_init(115200, "8N1") != 0 )
 		fail();
+
+	dv_nvic_setprio(0, 12);
+	dv_nvic_enableirq(0);
 
 	init_led();
 	led_off();
@@ -69,7 +78,7 @@ void dv_reset(void)
 
 	for (;;)
 	{
-		dv_uart1_putc('*');
+		play_putc('*');
 		led_on();
 		delay(50);
 		led_off();
@@ -106,55 +115,77 @@ void dv_init_data(void)
 	}
 }
 
+void putstr(char *s)
+{
+	while ( *s != '\0' )
+	{
+		play_putc(*s++);
+	}
+}
+
+void dv_irq_ext0(void)
+{
+	putstr("dv_irq_ext0()\n");
+}
+
 /* Below this line are stub functions to satisfy the vector addresses
 */
 void dv_nmi(void)
 {
+	putstr("dv_nmi()\n");
 	for (;;)	{ }
 }
 
 void dv_hardfault(void)
 {
+	putstr("dv_hardfault()\n");
 	for (;;)	{ }
 }
 
 void dv_memfault(void)
 {
+	putstr("dv_memfault()\n");
 	for (;;)	{ }
 }
 
 void dv_busfault(void)
 {
+	putstr("dv_busfault()\n");
 	for (;;)	{ }
 }
 
 void dv_usagefault(void)
 {
+	putstr("dv_usagefault()\n");
 	for (;;)	{ }
 }
 
 void dv_svctrap(void)
 {
+	putstr("dv_svctrap()\n");
 	for (;;)	{ }
 }
 
 void dv_pendsvtrap(void)
 {
-	for (;;)	{ }
+	putstr("dv_pendsvtrap()\n");
 }
 
 void dv_systickirq(void)
 {
+	putstr("dv_systickirq()\n");
 	for (;;)	{ }
 }
 
 void dv_irq(void)
 {
+	putstr("dv_irq()\n");
 	for (;;)	{ }
 }
 
 void dv_unknowntrap(void)
 {
+	putstr("dv_unknowntrap()\n");
 	for (;;)	{ }
 }
 

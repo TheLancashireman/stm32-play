@@ -1,4 +1,4 @@
-/* stm32.h
+/*  nvic.c
  *
  *  Copyright David Haworth
  *
@@ -17,18 +17,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with the STM32 playground.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef STM32_H
-#define STM32_H
+#include "stm32.h"
+#include "nvic.h"
 
-/* Some standard typedefs for a 32-bit core
+/* dv_nvic_init() - initialize the nvic
 */
-typedef unsigned int dv_u32_t;
-typedef unsigned short dv_u16_t;
-typedef unsigned char dv_u8_t;
-typedef volatile dv_u32_t dv_reg32_t;
+void dv_nvic_init(void)
+{
+	/* Disable all sources and clear any pending
+	*/
+	int nsets = (DV_NVIC_NIRQ+31)/32;
 
-/* No. of interrupt request signals to the NVIC
-*/
-#define DV_NVIC_NIRQ	68
-
-#endif
+	for ( int i = 0; i < nsets; i++ )
+	{
+		dv_nvic.icer[i] = 0xffffffff;	/* Disable all interrupts sources in the set */
+		dv_nvic.icpr[i] = 0xffffffff;	/* Clear all pending IRQa in the set */
+	}
+}
